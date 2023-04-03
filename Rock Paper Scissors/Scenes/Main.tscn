@@ -39,7 +39,7 @@ script = ExtResource( 1 )
 margin_left = 2.0
 margin_right = 1022.0
 margin_bottom = 596.0
-color = Color( 0.0784314, 0.172549, 0.286275, 1 )
+color = Color( 0.164706, 0.368627, 0.615686, 1 )
 
 [node name="Border" type="StaticBody2D" parent="."]
 
@@ -66,7 +66,20 @@ shape = SubResource( 4 )
 [node name="UI" type="Node2D" parent="."]
 position = Vector2( 510, 301 )
 
-[node name="Label" type="Label" parent="UI"]
+[node name="MainMenu" type="Node2D" parent="UI"]
+
+[node name="Background" type="ColorRect" parent="UI/MainMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -510.0
+margin_top = -298.0
+margin_right = 510.0
+margin_bottom = 298.0
+color = Color( 0.101961, 0.215686, 0.352941, 1 )
+
+[node name="Title" type="Label" parent="UI/MainMenu"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -79,7 +92,7 @@ text = "Rock Paper Scissors Tournament"
 align = 1
 valign = 1
 
-[node name="Button" type="Button" parent="UI"]
+[node name="Start" type="Button" parent="UI/MainMenu"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -93,7 +106,7 @@ custom_colors/font_color_disabled = Color( 0.686275, 0.0980392, 0.0980392, 1 )
 text = "Start tournament"
 clip_text = true
 
-[node name="HSlider" type="HSlider" parent="UI"]
+[node name="Size" type="HSlider" parent="UI/MainMenu"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -102,13 +115,15 @@ margin_left = -110.5
 margin_top = -64.0
 margin_right = 110.5
 margin_bottom = 64.0
-min_value = 100.0
-max_value = 1000.0
+min_value = 50.0
+max_value = 250.0
+step = 50.0
 value = 100.0
 rounded = true
+tick_count = 5
 ticks_on_borders = true
 
-[node name="Label" type="Label" parent="UI/HSlider"]
+[node name="Label" type="Label" parent="UI/MainMenu/Size"]
 margin_right = 218.0
 margin_bottom = 49.0
 theme = ExtResource( 2 )
@@ -116,7 +131,7 @@ text = "Tournament size"
 align = 1
 valign = 1
 
-[node name="CheckBox" type="CheckBox" parent="UI"]
+[node name="ExtendedCheckbox" type="CheckBox" parent="UI/MainMenu"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -127,3 +142,31 @@ margin_right = 103.0
 margin_bottom = 104.0
 theme = SubResource( 9 )
 text = "add Lizard and Spock"
+
+[node name="Restart" type="Button" parent="UI"]
+visible = false
+margin_left = -119.0
+margin_top = 150.0
+margin_right = 129.0
+margin_bottom = 236.0
+theme = ExtResource( 2 )
+text = "Restart"
+
+[node name="WinMessage" type="Label" parent="UI/Restart"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -251.0
+margin_top = -251.0
+margin_right = 241.0
+margin_bottom = -137.0
+theme = ExtResource( 2 )
+text = "None Won!"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="UI/MainMenu/Start" to="." method="_on_Start_pressed"]
+[connection signal="value_changed" from="UI/MainMenu/Size" to="." method="_on_Size_value_changed"]
+[connection signal="toggled" from="UI/MainMenu/ExtendedCheckbox" to="." method="_on_ExtendedCheckbox_toggled"]
+[connection signal="pressed" from="UI/Restart" to="." method="_on_Restart_pressed"]
